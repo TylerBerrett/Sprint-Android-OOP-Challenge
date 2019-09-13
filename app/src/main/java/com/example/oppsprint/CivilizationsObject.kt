@@ -1,6 +1,7 @@
-package com.example.oppsprint.presenter
+package com.example.oppsprint
 
 import com.example.oppsprint.model.Civilizations
+import com.example.oppsprint.presenter.ListsOfItems
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

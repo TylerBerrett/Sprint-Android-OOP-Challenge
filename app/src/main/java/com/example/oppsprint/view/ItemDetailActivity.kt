@@ -6,10 +6,6 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import com.example.oppsprint.R
-import com.example.oppsprint.presenter.CivilizationsObject
-import com.example.oppsprint.presenter.ListsOfItems
-import com.example.oppsprint.presenter.RetroFit
-import com.example.oppsprint.presenter.UnitsObject
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
 /**

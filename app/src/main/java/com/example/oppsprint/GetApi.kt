@@ -1,4 +1,4 @@
-package com.example.oppsprint.presenter
+package com.example.oppsprint
 
 import com.example.oppsprint.model.Civilizations
 import com.example.oppsprint.model.Units

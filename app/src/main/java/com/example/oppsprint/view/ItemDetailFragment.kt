@@ -14,6 +14,7 @@ import com.example.oppsprint.model.Unit
 import com.example.oppsprint.presenter.ListsOfItems
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import kotlinx.android.synthetic.main.item_detail.view.*
+import org.w3c.dom.Text
 
 /**
  * A fragment representing a single Item detail screen.
@@ -27,6 +28,7 @@ class ItemDetailFragment : Fragment() {
      * The dummy content this fragment is presenting.
      */
     private var item: Item? = null
+    private var listener: fragmentCallback? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,10 +66,17 @@ class ItemDetailFragment : Fragment() {
             rootView.item_detail.text = text
             rootView.button_toast.setOnClickListener {
                 Toast.makeText(it.context, text, Toast.LENGTH_SHORT).show()
+                item?.isFavorite = true
+                listener?.fragmentListener(text)
             }
         }
 
         return rootView
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
     }
 
     companion object {
@@ -77,4 +86,10 @@ class ItemDetailFragment : Fragment() {
          */
         const val ARG_ITEM_ID = "item_id"
     }
+
+    interface fragmentCallback{
+        fun fragmentListener(text: String)
+    }
+
+
 }

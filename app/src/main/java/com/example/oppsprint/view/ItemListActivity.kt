@@ -28,7 +28,14 @@ import kotlinx.android.synthetic.main.item_list.*
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-class ItemListActivity : AppCompatActivity() {
+class ItemListActivity : AppCompatActivity(), ItemDetailFragment.fragmentCallback {
+
+
+    override fun fragmentListener(text: String) {
+        val favText = text + "fav"
+        item_list.adapter?.notifyDataSetChanged()
+
+    }
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -112,12 +119,16 @@ class ItemListActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
+            var body= ""
 
-            val body = if (item is Unit){
-                item.attack
+
+            if (item is Unit){
+                body = item.attack
+                if (item.isFavorite) body += "fav"
             } else {
                 val civilization = item as Civilization
-                civilization.army_type
+                body = civilization.army_type
+                if (item.isFavorite) body += "fav"
             }
 
 
