@@ -1,10 +1,11 @@
-package com.example.oppsprint
+package com.example.oppsprint.view
 
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import com.example.oppsprint.R
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
 /**

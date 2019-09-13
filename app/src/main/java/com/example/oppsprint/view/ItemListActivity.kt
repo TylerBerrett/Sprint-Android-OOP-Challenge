@@ -1,4 +1,4 @@
-package com.example.oppsprint
+package com.example.oppsprint.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,11 +9,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.oppsprint.R
 
 import com.example.oppsprint.dummy.DummyContent
+import com.example.oppsprint.model.Civilizations
+import com.example.oppsprint.presenter.CivilizationsObject
+import com.example.oppsprint.presenter.RetroFit
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
 import kotlinx.android.synthetic.main.item_list.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 
 /**
  * An activity representing a list of Pings. This activity
@@ -39,8 +47,9 @@ class ItemListActivity : AppCompatActivity() {
         toolbar.title = title
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "nice", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+
         }
 
         if (item_detail_container != null) {
@@ -55,7 +64,12 @@ class ItemListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, twoPane)
+        recyclerView.adapter =
+            SimpleItemRecyclerViewAdapter(
+                this,
+                DummyContent.ITEMS,
+                twoPane
+            )
     }
 
     class SimpleItemRecyclerViewAdapter(

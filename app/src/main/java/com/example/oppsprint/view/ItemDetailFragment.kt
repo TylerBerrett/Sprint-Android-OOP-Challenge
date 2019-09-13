@@ -1,10 +1,11 @@
-package com.example.oppsprint
+package com.example.oppsprint.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.oppsprint.R
 import com.example.oppsprint.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import kotlinx.android.synthetic.main.item_detail.view.*
