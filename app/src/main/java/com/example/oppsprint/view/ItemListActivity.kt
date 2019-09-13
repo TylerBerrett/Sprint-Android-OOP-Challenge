@@ -12,16 +12,13 @@ import android.widget.TextView
 import com.example.oppsprint.R
 
 import com.example.oppsprint.dummy.DummyContent
-import com.example.oppsprint.model.Civilizations
-import com.example.oppsprint.presenter.CivilizationsObject
-import com.example.oppsprint.presenter.RetroFit
+import com.example.oppsprint.model.Civilization
+import com.example.oppsprint.model.Item
+import com.example.oppsprint.model.Unit
+import com.example.oppsprint.presenter.ListsOfItems
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
 import kotlinx.android.synthetic.main.item_list.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
 
 /**
  * An activity representing a list of Pings. This activity
@@ -43,12 +40,16 @@ class ItemListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_list)
 
+
+
+
         setSupportActionBar(toolbar)
         toolbar.title = title
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "nice", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+            println(ListsOfItems.list)
 
         }
 
@@ -59,22 +60,22 @@ class ItemListActivity : AppCompatActivity() {
             // activity should be in two-pane mode.
             twoPane = true
         }
-
         setupRecyclerView(item_list)
     }
+
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter =
             SimpleItemRecyclerViewAdapter(
                 this,
-                DummyContent.ITEMS,
+                ListsOfItems.list,
                 twoPane
             )
     }
 
     class SimpleItemRecyclerViewAdapter(
         private val parentActivity: ItemListActivity,
-        private val values: List<DummyContent.DummyItem>,
+        private val values: List<Item>,
         private val twoPane: Boolean
     ) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
@@ -83,11 +84,11 @@ class ItemListActivity : AppCompatActivity() {
 
         init {
             onClickListener = View.OnClickListener { v ->
-                val item = v.tag as DummyContent.DummyItem
+                val item = v.tag as Item
                 if (twoPane) {
                     val fragment = ItemDetailFragment().apply {
                         arguments = Bundle().apply {
-                            putString(ItemDetailFragment.ARG_ITEM_ID, item.id)
+                            putString(ItemDetailFragment.ARG_ITEM_ID, item.name)
                         }
                     }
                     parentActivity.supportFragmentManager
@@ -96,7 +97,7 @@ class ItemListActivity : AppCompatActivity() {
                         .commit()
                 } else {
                     val intent = Intent(v.context, ItemDetailActivity::class.java).apply {
-                        putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id)
+                        putExtra(ItemDetailFragment.ARG_ITEM_ID, item.name)
                     }
                     v.context.startActivity(intent)
                 }
@@ -111,8 +112,17 @@ class ItemListActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
-            holder.idView.text = item.id
-            holder.contentView.text = item.content
+
+            val body = if (item is Unit){
+                item.attack
+            } else {
+                val civilization = item as Civilization
+                civilization.army_type
+            }
+
+
+            holder.idView.text = item.name
+            holder.contentView.text = body
 
             with(holder.itemView) {
                 tag = item

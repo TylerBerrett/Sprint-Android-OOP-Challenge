@@ -1,21 +1,21 @@
 package com.example.oppsprint.presenter
 
-import com.example.oppsprint.model.Civilizations
+import com.example.oppsprint.model.Units
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object CivilizationsObject :Callback<Civilizations> {
-    override fun onFailure(call: Call<Civilizations>, t: Throwable) {
+object UnitsObject :Callback<Units> {
+    override fun onFailure(call: Call<Units>, t: Throwable) {
         println(t)
     }
 
     override fun onResponse(
-        call: Call<Civilizations>,
-        response: Response<Civilizations>
+        call: Call<Units>,
+        response: Response<Units>
     ) {
         if (response.isSuccessful){
-            val list = response.body()!!.civilizations
+            val list = response.body()!!.units
             for (i in 0..2) {
                 ListsOfItems.list.add(list[i])
             }

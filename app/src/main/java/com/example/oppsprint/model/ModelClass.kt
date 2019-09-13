@@ -6,14 +6,9 @@ abstract class Resources{
     abstract fun <T> getList(): List<T>
 }
 
-abstract class Item{
-    abstract fun getNameOfItem(): String
-    abstract fun isFavoriteItem(): Boolean
-}
+abstract class Item(val name: String)
 
-interface CivilizationSpecial{
-    fun armyType(): String
-}
+
 
 
 
@@ -23,23 +18,8 @@ class Civilizations(val civilizations: List<Civilization>)/* : Resources(){
     }
 
 }*/
-class Civilization(val name: String, val army_type: String, val isFavorite: Boolean = false): Item(), CivilizationSpecial{
-    override fun armyType(): String {
-        return this.army_type
-    }
-
-    override fun getNameOfItem(): String {
-        return this.name
-    }
-
-    override fun isFavoriteItem(): Boolean {
-        return this.isFavorite
-    }
-
-}
-
-
+class Civilization(name: String, val army_type: String, val isFavorite: Boolean = false): Item(name)
 
 class Units(val units: List<Unit>)
 
-class Unit(val name: String, val attack: String)
+class Unit(name: String, val attack: String) :Item(name)
